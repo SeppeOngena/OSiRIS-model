@@ -1,0 +1,366 @@
+{
+    "Version": "3",
+    "Dataset": {
+        "phi": 51.001111,
+        "lambda": 4.084444,
+        "z": 5,
+        "dt": 900,
+        "IrrigationThreshold": 5,
+        "TimeZone": "Europe/Brussels",
+        "WaterOptions": {
+            "RainDataPath": "C:\\Users\\songena\\OneDrive - UGent\\PhD\\Content\\1. Decentralized household model\\Model_Seppe\\Data\\Water15M2015-2025Denderbelle.csv",
+            "Decimalsep": ",",
+            "Delimiter": ";",
+            "tformat": "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        },
+        "SolarOptions": {
+            "UsePVModel": true,
+            "PVModelSettings": {
+                "ClouddataTable": {
+                    "Clear": [
+                        3.2,
+                        3.3,
+                        4.4,
+                        4.8,
+                        5.1,
+                        4.7,
+                        5.8,
+                        5.6,
+                        5.9,
+                        5.4,
+                        2.9,
+                        2.2
+                    ],
+                    "Cloudy": [
+                        9.2,
+                        10.9,
+                        13.3,
+                        15.2,
+                        16.5,
+                        16.8,
+                        18.9,
+                        19,
+                        15.4,
+                        14.5,
+                        10.4,
+                        9
+                    ],
+                    "Overcast": [
+                        18.5,
+                        14.1,
+                        13.5,
+                        10,
+                        9.4,
+                        8.5,
+                        6.3,
+                        6.4,
+                        8.7,
+                        11.1,
+                        16.7,
+                        19.8
+                    ]
+                },
+                "alpha": 0,
+                "beta": 40,
+                "rho": 0.2,
+                "Tlk": 3
+            },
+            "SolarFile": {
+                "SolarDataPath": "",
+                "DecimalsepSolar": ".",
+                "DelimiterSolar": ",",
+                "tformatSolar": "yyyyMMdd:HHmm"
+            }
+        }
+    },
+    "Scenario": {
+        "Tanks": {
+            "RW": {
+                "V_tank": 6,
+                "prefill": true,
+                "V_init": 5,
+                "c_init": 70,
+                "R": 0
+            },
+            "BW": {
+                "V_tank": 1,
+                "prefill": false,
+                "V_init": 0,
+                "c_init": 0,
+                "R": 0.05
+            }
+        },
+        "Technologies": {
+            "PumpRW": {
+                "Type": "Pump",
+                "Q": 1.2,
+                "E": 0.2,
+                "EMS": [
+                    "Grid"
+                ]
+            },
+            "Wetland":{
+                "Type": "Treatment",
+                "Q": 1.2,
+                "E": 1.85,
+                "r": 0.9,
+                "R": 0,
+                "D": 0,
+                "EMS": [
+                    "Grid"
+                ]
+            }
+        },
+        "Applications": {
+            "TL": {
+                "DistributionData": "Toilet",
+                "IE": 2,
+                "Q_lpd": 21.3,
+                "c_added": 30,
+                "Actor": "PumpRW",
+                "Sourcewater": "RW",
+                "Wastewater": "BW"
+            },
+            "BT": {
+                "DistributionData": "ShowerBath",
+                "IE": 2,
+                "Q_lpd": 5.1,
+                "c_added": 96,
+                "Actor": "CityWater",
+                "Sourcewater": "CityWater",
+                "Wastewater": "Wetland"
+            },
+            "SH": {
+                "DistributionData": "ShowerBath",
+                "IE": 2,
+                "Q_lpd": 23.8,
+                "c_added": 214,
+                "Actor": "CityWater",
+                "Sourcewater": "CityWater",
+                "Wastewater": "Wetland"
+            },
+            "BS": {
+                "DistributionData": "BathroomSink",
+                "IE": 2,
+                "Q_lpd": 9.4,
+                "c_added": 167,
+                "Actor": "CityWater",
+                "Sourcewater": "CityWater",
+                "Wastewater": "Wetland"
+            },
+            "WM": {
+                "DistributionData": "WashingMachine",
+                "IE": 2,
+                "Q_lpd": 16.6,
+                "c_added": 380,
+                "Actor": "PumpRW",
+                "Sourcewater": "RW",
+                "Wastewater": "Wetland"
+            },
+            "DW": {
+                "DistributionData": "Kitchen",
+                "IE": 2,
+                "Q_lpd": 2.3,
+                "c_added": 646,
+                "Actor": "PumpRW",
+                "Sourcewater": "RW",
+                "Wastewater": "Wetland"
+            },
+            "KS": {
+                "DistributionData": "Kitchen",
+                "IE": 2,
+                "Q_lpd": 17.1,
+                "c_added": 153,
+                "Actor": "CityWater",
+                "Sourcewater": "CityWater",
+                "Wastewater": "Wetland"
+            },
+            "CL": {
+                "DistributionData": "Uniform",
+                "Q_ld": 5.8,
+                "c_added": 530,
+                "Actor": "PumpRW",
+                "Sourcewater": "RW",
+                "Wastewater": "BW"
+            },
+            "GA": {
+                "DistributionData": "Irrigation",
+                "Q_ld": 7.4,
+                "c_added": 0,
+                "Actor": "PumpRW",
+                "Sourcewater": "RW",
+                "Wastewater": "Infiltration",
+                "IrrigationThreshold": 5
+            }
+        },
+        "Sources": {
+            "RoofSlopedAttic": {
+                "Type": "Catchment",
+                "Data": "Rain_mm",
+                "Feeds": "RW",
+                "A": 13,
+                "c": 7.7,
+                "eta_rain": 1.002
+            },
+            "RoofSlopedBedroom": {
+                "Type": "Catchment",
+                "Data": "Rain_mm",
+                "Feeds": "RW",
+                "A": 15,
+                "c": 7.7,
+                "eta_rain": 0.962
+            },
+            "RoofFlat": {
+                "Type": "Catchment",
+                "Data": "Rain_mm",
+                "Feeds": "RW",
+                "A": 38,
+                "c": 7.7,
+                "eta_rain": 0.76
+            },
+            "RoofShed": {
+                "Type": "Catchment",
+                "Data": "Rain_mm",
+                "Feeds": "RW",
+                "A": 8,
+                "c": 7.7,
+                "eta_rain": 0.76
+            },
+            "RoofCarport": {
+                "Type": "Catchment",
+                "Data": "Rain_mm",
+                "Feeds": "RW",
+                "A": 10,
+                "c": 7.7,
+                "eta_rain": 0.4
+            },
+            "CityWater": {
+                "Type": "Tap",
+                "c": 70
+            }
+        },
+        "Sinks": {
+            "Sewer": {},
+            "Infiltration": {}
+        },
+        "EnergyManagementSystems": {
+            "Grid": {
+                "Generators": {
+                    "Centralized": {
+                        "Type": "Other",
+                        "Data": "Uniform",
+                        "Multiplier": 1e+308
+                    }
+                }
+            }
+        },
+        "Controls": [
+            {
+                "RW_infil": {
+                    "ControlType": "full",
+                    "Type": "empty/lower",
+                    "Tank": "RW",
+                    "Parameter": "V",
+                    "Flow": 1,
+                    "Limits": [
+                        {
+                            "Grid": {
+                                "Low": 5,
+                                "High": 5.0005
+                            }
+                        }
+                    ],
+                    "Steps": [
+                        {
+                            "Infiltrate": {
+                                "Fraction": 1,
+                                "Actor": "Infiltration",
+                                "Source": "RW",
+                                "Sink": "Infiltration",
+                                "Waste": "Infiltration"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "BW_infil": {
+                    "ControlType": "hysteresis",
+                    "Type": "empty/lower",
+                    "Tank": "BW",
+                    "Parameter": "V",
+                    "Flow": 1.2,
+                    "Limits": [
+                        {
+                            "Grid": {
+                                "Low": 0.8,
+                                "High": 0.9
+                            }
+                        }
+                    ],
+                    "Steps": [
+                        {
+                            "Treat": {
+                                "Fraction": 1,
+                                "Actor": "Sewer",
+                                "Source": "BW",
+                                "Sink": "Sewer",
+                                "Waste": "Sewer"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "RainRefillControl": {
+                    "ControlType": "full",
+                    "Type": "fill/increase",
+                    "Tank": "RW",
+                    "Parameter": "V",
+                    "Flow": 1,
+                    "Limits": [
+                        {
+                            "Grid": {
+                                "Low": 0.5,
+                                "High": 5
+                            }
+                        }
+                    ],
+                    "Steps": [
+                        {
+                            "Tap": {
+                                "Fraction": 1,
+                                "Actor": "CityWater",
+                                "Source": "CityWater",
+                                "Sink": "RW",
+                                "Waste": "RW"
+                            }
+                        }
+                    ]
+                }
+            },
+            {"Wetland":{
+				"ControlType": "hysteresis",
+				"Type": "empty/lower",
+				"Tank": "Wetland",
+				"Parameter": "V",
+				"Flow":1.2,
+				"Limits":[
+					{"Grid":{
+						"Low":0.0,
+						"High":0.001
+					}}
+				],
+				"Steps": [
+					{"Treat": {
+						"Fraction": 1,
+						"Actor": "Wetland",
+						"Source": "Wetland",
+						"Sink": "RW",
+						"Waste": "Infiltration"
+					}}
+				]
+			}}
+        ]
+    }
+}

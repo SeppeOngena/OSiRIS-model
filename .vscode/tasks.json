@@ -1,0 +1,40 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build OSiRIS",
+            "type": "shell",
+            // Linux: reuse build.sh so the build is defined in one place
+            "command": "sh",
+            "args": ["build.sh", "-g", "-Wall", "-fdiagnostics-color=always"],
+            "options": { "cwd": "${workspaceFolder}" },
+
+            // Windows (MinGW + vcpkg)
+            "windows": {
+                "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+                "args": [
+                    "-fdiagnostics-color=always",
+                    "-g",
+                    "-O0",
+                    "-Wall",
+                    "${file}",
+                    "-I", "${workspaceFolder}/submodules",
+                    "-I", "C:/Users/songena/vcpkg/installed/x64-mingw-static/include",
+                    "-L", "C:/Users/songena/vcpkg/installed/x64-mingw-static/lib",
+                    "-ljsoncpp",
+                    "-static",
+                    "-o", "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                    "-std=c++20"
+                ],
+                "options": { "cwd": "${fileDirname}" }
+            },
+
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": ["autoDetect", "${workspaceFolder}"]
+            },
+            "group": { "kind": "build", "isDefault": true },
+            "detail": "Build OSiRIS using g++"
+        }
+    ]
+}

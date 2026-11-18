@@ -1,0 +1,6 @@
+[submodule "submodules/jsoncpp"]
+	path = submodules/jsoncpp
+	url = https://github.com/open-source-parsers/jsoncpp
+[submodule "submodules/csv2"]
+	path = submodules/csv2
+	url = https://github.com/p-ranav/csv2
